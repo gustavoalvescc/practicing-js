@@ -4,28 +4,33 @@ class NegotiationController{
         this._inputQtd = document.querySelector("#quantidade");
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
+        this._listNegotiation = new ListNegotiation();
     }
 
     addFocus(element){
         element.focus();
     }
 
-    clean(...elements){
-        elements.forEach((e) => e.value = "");
+    clean(){
+        this._inputQtd.value = 1;
+        this._inputValue.value = 0.0;
+        this._inputDate.value = "";
     }
     
     add(event){
         event.preventDefault();
-        let sA = this._inputDate.value.split("-").map((v, i) => (i == 1) ? v-1 : v
-        );
-        let d = new Date(...sA);
+
         let negotiation = new Negotiation(
-            d,
+            DateHelper.textToDate(this._inputDate.value),
             this._inputQtd.value,
             this._inputValue.value
         );
-        this.clean(this._inputDate, this._inputQtd, this._inputValue);
+
+        this._listNegotiation.add(negotiation);
+
+        this.clean();
         this.addFocus(this._inputDate);
-        return negotiation;
+        
+        console.log(this._listNegotiation.negotiations);
     }
 }
