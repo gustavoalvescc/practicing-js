@@ -3,7 +3,7 @@ class NegotiationView{
     this._element = element;
   }
   
-  template(model){
+  _template(model){
     return `
     <table class="table table-hover table-bordered">
         <thead>
@@ -39,6 +39,6 @@ class NegotiationView{
     `;
   }
   update(model){
-    this._element.innerHTML = this.template(model);
+    this._element.innerHTML = this._template(model);
   }
 }

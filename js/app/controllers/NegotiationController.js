@@ -7,6 +7,8 @@ class NegotiationController{
         this._listNegotiation = new ListNegotiation();
         this.negotiationView = new NegotiationView(document.getElementById("negotiationView"));
         this.negotiationView.update(this._listNegotiation);
+        this.messageView = new MessageView(document.getElementById("messageView"));
+        this.messageView.update("");
     }
 
     addFocus(element){
@@ -34,5 +36,6 @@ class NegotiationController{
         this.addFocus(this._inputDate);
 
         this.negotiationView.update(this._listNegotiation);
+        this.messageView.update(new Message("Negotiation added with success"));
     }
 }
