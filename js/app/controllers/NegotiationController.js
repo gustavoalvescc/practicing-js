@@ -15,7 +15,7 @@ class NegotiationController{
 
     clean(){
         this._inputQtd.value = 1;
-        this._inputValue.value = 0,0;
+        this._inputValue.value = 0.0;
         this._inputDate.value = "";
     }
     

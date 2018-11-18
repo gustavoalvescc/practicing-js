@@ -2,9 +2,7 @@ class NegotiationView{
   constructor(element){
     this._element = element;
   }
-  908581018
-  908581082
-  908581152
+  
   template(model){
     return `
     <table class="table table-hover table-bordered">
@@ -19,20 +17,23 @@ class NegotiationView{
 
         <tbody>
           ${
-            model.negotiations.map(e => {
-              return `
+            model.negotiations.map(e =>
+              `
                 <tr>
                   <td>${DateHelper.dateToText(e.date)}</td>
                   <td>${e.qtd}</td>
                   <td>${e.value}</td>
                   <td>${e.volum}</td>
                 </tr>
-              `;
-            })
+              `).join('')
           }
         </tbody>
         
         <tfoot>
+          <td colspan="3"></td>
+          <td>
+            ${model.negotiations.reduce((amount, e) => amount + e.volum, 0.0)}
+          </td>
         </tfoot>
     </table>
     `;
