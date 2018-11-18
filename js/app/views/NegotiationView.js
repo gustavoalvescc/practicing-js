@@ -1,8 +1,4 @@
-class NegotiationView{
-  constructor(element){
-    this._element = element;
-  }
-  
+class NegotiationView extends AbstractView{
   _template(model){
     return `
     <table class="table table-hover table-bordered">
@@ -37,8 +33,5 @@ class NegotiationView{
         </tfoot>
     </table>
     `;
-  }
-  update(model){
-    this._element.innerHTML = this._template(model);
   }
 }
