@@ -7,13 +7,13 @@ class Negotiation{
         this._value = value;
         Object.freeze(this);
     }
-    get data(){
+    get date(){
         //Making immutable
-        return new Date(this._data.setTime());
+        return new Date(this._date.getTime());
     };
     get qtd(){return this._qtd};
     get value(){ return this._value};
-    get volume(){ 
-        return this._qtd * this._value 
+    get volum(){ 
+        return this._qtd * this._value;
     }
 }

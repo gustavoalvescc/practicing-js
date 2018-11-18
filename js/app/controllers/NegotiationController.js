@@ -5,6 +5,8 @@ class NegotiationController{
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
         this._listNegotiation = new ListNegotiation();
+        this.negotiationView = new NegotiationView(document.getElementById("negotiationView"));
+        this.negotiationView.update(this._listNegotiation);
     }
 
     addFocus(element){
@@ -13,7 +15,7 @@ class NegotiationController{
 
     clean(){
         this._inputQtd.value = 1;
-        this._inputValue.value = 0.0;
+        this._inputValue.value = 0,0;
         this._inputDate.value = "";
     }
     
@@ -30,7 +32,7 @@ class NegotiationController{
 
         this.clean();
         this.addFocus(this._inputDate);
-        
-        console.log(this._listNegotiation.negotiations);
+
+        this.negotiationView.update(this._listNegotiation);
     }
 }

@@ -8,8 +8,6 @@ class ListNegotiation{
   }
 
   get negotiations(){
-    let result = new Array();
-    result.concat(this._negotiations);
     return this._negotiations;
   }
 }
