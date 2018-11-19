@@ -1,17 +1,14 @@
 class ListNegotiation{
-  constructor(view){
+  constructor(){
     this._negotiations = [];
-    this._view = view;
   }
 
   add(negotiation){
     this._negotiations.push(negotiation);
-    this._view(this);
   }
 
   clean(){
     this._negotiations = [];
-    this._view(this);
   }
 
   get negotiations(){

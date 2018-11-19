@@ -1,10 +1,24 @@
 "use strict";
 class NegotiationController{
     constructor(){
+        let self = this;
         this._inputQtd = document.querySelector("#quantidade");
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
-        this._listNegotiation = new ListNegotiation(model => this.negotiationView.update(model));
+        
+        this._listNegotiation = new Proxy(new ListNegotiation(), {
+            get(target, props, receiver){
+                if (['add','clean'].includes(props) && typeof(target[props]) == typeof(Function)){
+                    return function(){
+                        Reflect.apply(target[props], target, arguments);
+                        self.negotiationView.update(target);
+                    }
+                    
+                }
+                return Reflect.get(target, props, receiver);
+            }
+        });
+        
         this.negotiationView = new NegotiationView(document.getElementById("negotiationView"));
         this.negotiationView.update(this._listNegotiation);
         this.messageView = new MessageView(document.getElementById("messageView"));
