@@ -16,7 +16,8 @@ class DateHelper{
   }
   static dateToText(date){
     let realMonth = date.getMonth() + 1;
+    let day = (date.getDate() < 10) ? ("0"+date.getDate()) : realMonth;
     let month = (realMonth < 10) ? ("0"+realMonth) : realMonth;
-    return `${date.getDate()}/${month}/${date.getFullYear()}`;
+    return `${day}/${month}/${date.getFullYear()}`;
   }
 }

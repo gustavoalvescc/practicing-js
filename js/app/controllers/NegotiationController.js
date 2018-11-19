@@ -43,12 +43,18 @@ class NegotiationController{
 
     import(){
         let service = new NegotiationService();
-        service.import((error, negotiations)=>{
-            if (error){
-                this._message = "Error importing negotiation";
-            }
+        service.importWeek().then((negotiations) => {
             negotiations.forEach(n => this._listNegotiation.add(n));
             this._message = "Negotiations imported with success";
-        });
+        }).catch(error => this._message = "Error importing negotiation");
+        service.importBefore().then((negotiations) => {
+            negotiations.forEach(n => this._listNegotiation.add(n));
+            this._message = "Negotiations imported with success";
+        }).catch(error => this._message = "Error importing negotiation");
+        service.importBefore2().then((negotiations) => {
+            negotiations.forEach(n => this._listNegotiation.add(n));
+            this._message = "Negotiations imported with success";
+        }).catch(error => this._message = "Error importing negotiation");
+        
     }
 }
