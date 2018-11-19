@@ -1,28 +1,16 @@
 "use strict";
 class NegotiationController{
     constructor(){
-        let self = this;
         this._inputQtd = document.querySelector("#quantidade");
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
         
-        this._listNegotiation = new Proxy(new ListNegotiation(), {
-            get(target, props, receiver){
-                if (['add','clean'].includes(props) && typeof(target[props]) == typeof(Function)){
-                    return function(){
-                        Reflect.apply(target[props], target, arguments);
-                        self.negotiationView.update(target);
-                    }
-                    
-                }
-                return Reflect.get(target, props, receiver);
-            }
-        });
-        
         this.negotiationView = new NegotiationView(document.getElementById("negotiationView"));
-        this.negotiationView.update(this._listNegotiation);
         this.messageView = new MessageView(document.getElementById("messageView"));
-        this.messageView.update("");
+
+        this._listNegotiation = new Bind(new ListNegotiation, ['add', 'clean'], this.negotiationView);
+        this._message = new Bind(new Message, ['text'], this.messageView);
+        
     }
 
     addFocus(element){
@@ -37,8 +25,7 @@ class NegotiationController{
 
     cleanList(){
         this._listNegotiation.clean();
-
-        this.messageView.update(new Message("Negotiation list cleaned with success"));
+        this._message.text = "Negotiation list cleaned with success";
     }
     
     add(event){
@@ -54,7 +41,6 @@ class NegotiationController{
 
         this.cleanForm();
         this.addFocus(this._inputDate);
-
-        this.messageView.update(new Message("Negotiation added with success"));
+        this._message.text = "Negotiation added with success";
     }
 }
