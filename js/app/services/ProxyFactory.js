@@ -4,8 +4,9 @@ class ProxyFactory{
             get(target, props, receiver){
                 if (methods.includes(props) && typeof(target[props]) == typeof(Function)){
                     return function(){
-                        Reflect.apply(target[props], target, arguments);
-                        return action(target);
+                        let retorno = Reflect.apply(target[props], target, arguments);
+                        action(target);
+                        return retorno;
                     }
                     
                 }

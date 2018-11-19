@@ -4,12 +4,9 @@ class NegotiationController{
         this._inputQtd = document.querySelector("#quantidade");
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
-        
-        this.negotiationView = new NegotiationView(document.getElementById("negotiationView"));
-        this.messageView = new MessageView(document.getElementById("messageView"));
 
-        this._listNegotiation = new Bind(new ListNegotiation, ['add', 'clean'], this.negotiationView);
-        this._message = new Bind(new Message, ['text'], this.messageView);
+        this._listNegotiation = new Bind(new ListNegotiation, new NegotiationView(document.getElementById("negotiationView")), 'add', 'clean');
+        this._message = new Bind(new Message, new MessageView(document.getElementById("messageView")), 'text');
         
     }
 
