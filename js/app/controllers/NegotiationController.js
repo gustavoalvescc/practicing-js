@@ -5,13 +5,23 @@ class NegotiationController{
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
 
-        this._listNegotiation = new Bind(new ListNegotiation, new NegotiationView(document.getElementById("negotiationView")), 'add', 'clean');
+        this._listNegotiation = new Bind(new ListNegotiation, new NegotiationView(document.getElementById("negotiationView")), 'add', 'clean', 'orderAsc', 'orderDesc');
         this._message = new Bind(new Message, new MessageView(document.getElementById("messageView")), 'text');
+        this._order = "";
         
     }
 
     addFocus(element){
         element.focus();
+    }
+
+    order(column){
+        if (this._order == column){
+            this._listNegotiation.orderDesc(column);
+        }else{
+            this._listNegotiation.orderAsc(column);
+        }
+        this._order = column;
     }
 
     cleanForm(){
@@ -43,18 +53,13 @@ class NegotiationController{
 
     import(){
         let service = new NegotiationService();
-        service.importWeek().then((negotiations) => {
-            negotiations.forEach(n => this._listNegotiation.add(n));
-            this._message = "Negotiations imported with success";
-        }).catch(error => this._message = "Error importing negotiation");
-        service.importBefore().then((negotiations) => {
-            negotiations.forEach(n => this._listNegotiation.add(n));
-            this._message = "Negotiations imported with success";
-        }).catch(error => this._message = "Error importing negotiation");
-        service.importBefore2().then((negotiations) => {
-            negotiations.forEach(n => this._listNegotiation.add(n));
-            this._message = "Negotiations imported with success";
-        }).catch(error => this._message = "Error importing negotiation");
-        
+        Promise.all([service.importWeek(), service.importBefore(), service.importBefore2()])
+            .then((negotiations) => {
+                negotiations.reduce((result, a) => result.concat(a), [])
+                    .forEach(n => {
+                        this._listNegotiation.add(n);
+                        this._message.text = "Negotiations imported with success";
+                    });
+            }).catch(error => this._message.text = "Error importing negotiation");
     }
 }

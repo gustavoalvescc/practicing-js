@@ -4,10 +4,10 @@ class NegotiationView extends AbstractView{
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
-                <th>DATE</th>
-                <th>QTD</th>
-                <th>VALUE</th>
-                <th>VOLUM</th>
+                <th onclick="negotiationController.order('date')">DATE</th>
+                <th onclick="negotiationController.order('qtd')">QTD</th>
+                <th onclick="negotiationController.order('value')">VALUE</th>
+                <th onclick="negotiationController.order('volum')">VOLUM</th>
             </tr>
         </thead>
 
