@@ -15,5 +15,8 @@ class ListNegotiation{
     return this._negotiations;
   }
 
+  get totalVolum(){
+    return this._negotiations.reduce((total, o) => total+= total + o.volum, 0.0);
+  }
   
 }

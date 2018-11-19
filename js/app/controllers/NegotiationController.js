@@ -40,4 +40,15 @@ class NegotiationController{
         this.addFocus(this._inputDate);
         this._message.text = "Negotiation added with success";
     }
+
+    import(){
+        let service = new NegotiationService();
+        service.import((error, negotiations)=>{
+            if (error){
+                this._message = "Error importing negotiation";
+            }
+            negotiations.forEach(n => this._listNegotiation.add(n));
+            this._message = "Negotiations imported with success";
+        });
+    }
 }

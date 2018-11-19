@@ -28,7 +28,7 @@ class NegotiationView extends AbstractView{
         <tfoot>
           <td colspan="3"></td>
           <td>
-            ${model.negotiations.reduce((amount, e) => amount + e.volum, 0.0)}
+            ${model.totalVolum}
           </td>
         </tfoot>
     </table>
