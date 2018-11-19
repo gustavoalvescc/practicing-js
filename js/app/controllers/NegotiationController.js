@@ -4,7 +4,7 @@ class NegotiationController{
         this._inputQtd = document.querySelector("#quantidade");
         this._inputValue = document.querySelector("#valor");
         this._inputDate = document.querySelector("#data");
-        this._listNegotiation = new ListNegotiation();
+        this._listNegotiation = new ListNegotiation(model => this.negotiationView.update(model));
         this.negotiationView = new NegotiationView(document.getElementById("negotiationView"));
         this.negotiationView.update(this._listNegotiation);
         this.messageView = new MessageView(document.getElementById("messageView"));
@@ -15,10 +15,16 @@ class NegotiationController{
         element.focus();
     }
 
-    clean(){
+    cleanForm(){
         this._inputQtd.value = 1;
         this._inputValue.value = 0.0;
         this._inputDate.value = "";
+    }
+
+    cleanList(){
+        this._listNegotiation.clean();
+
+        this.messageView.update(new Message("Negotiation list cleaned with success"));
     }
     
     add(event){
@@ -32,10 +38,9 @@ class NegotiationController{
 
         this._listNegotiation.add(negotiation);
 
-        this.clean();
+        this.cleanForm();
         this.addFocus(this._inputDate);
 
-        this.negotiationView.update(this._listNegotiation);
         this.messageView.update(new Message("Negotiation added with success"));
     }
 }
