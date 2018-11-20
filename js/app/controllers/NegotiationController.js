@@ -15,8 +15,9 @@ class NegotiationController{
         element.focus();
     }
 
-    order(column){
+    order(element, column){
         if (this._order == column){
+           
             this._listNegotiation.orderDesc(column);
         }else{
             this._listNegotiation.orderAsc(column);

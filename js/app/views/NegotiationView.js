@@ -4,13 +4,12 @@ class NegotiationView extends AbstractView{
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
-                <th onclick="negotiationController.order('date')">DATE</th>
-                <th onclick="negotiationController.order('qtd')">QTD</th>
-                <th onclick="negotiationController.order('value')">VALUE</th>
-                <th onclick="negotiationController.order('volum')">VOLUM</th>
+                <th class="column" onclick="negotiationController.order(this, 'date')">DATE <i class="fas fa-sort"></i></th>
+                <th class="column" onclick="negotiationController.order(this, 'qtd')">QTD <i class="fas fa-sort"></i></th>
+                <th class="column" onclick="negotiationController.order(this, 'value')">VALUE <i class="fas fa-sort"></i></th>
+                <th class="column" onclick="negotiationController.order(this, 'volum')">VOLUM <i class="fas fa-sort"></i></th>
             </tr>
         </thead>
-
         <tbody>
           ${
             model.negotiations.map(e =>
