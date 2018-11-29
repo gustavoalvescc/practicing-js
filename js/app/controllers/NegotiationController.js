@@ -17,12 +17,13 @@ class NegotiationController{
 
     order(element, column){
         if (this._order == column){
-           
             this._listNegotiation.orderDesc(column);
+            this._order = "";
         }else{
             this._listNegotiation.orderAsc(column);
+            this._order = column;
         }
-        this._order = column;
+        
     }
 
     cleanForm(){
