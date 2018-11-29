@@ -8,6 +8,12 @@ class NegotiationController{
         this._listNegotiation = new Bind(new ListNegotiation, new NegotiationView(document.getElementById("negotiationView")), 'add', 'clean', 'orderAsc', 'orderDesc');
         this._message = new Bind(new Message, new MessageView(document.getElementById("messageView")), 'text');
         this._order = "";
+        ConnectionFactory.getConnection().then((c) => {
+            this._dao = new NegotiationDAO(c);
+            this._dao.list().then(negotiations => {
+                negotiations.forEach(n => this._listNegotiation.add(n));
+            });
+        });
         
     }
 
@@ -46,11 +52,19 @@ class NegotiationController{
             this._inputValue.value
         );
 
-        this._listNegotiation.add(negotiation);
+        this._dao.add(negotiation).then(() => {
+            this._listNegotiation.add(negotiation);
+            this.cleanForm();
+            this.addFocus(this._inputDate);
+            this._message.text = "Negotiation added with success";
+        }).catch((e) => {
+            console.log(e);
+            this._message.text = "Error adding negotiation";
+        });
+        
 
-        this.cleanForm();
-        this.addFocus(this._inputDate);
-        this._message.text = "Negotiation added with success";
+        
+        
     }
 
     import(){
